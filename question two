@@ -1,0 +1,66 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+months = ['07/2019', '08/2019', '09/2019', '10/2019', '11/2019']
+searches = [50, 53, 59, 56, 62]
+direct = [39, 47, 42, 51, 51]
+social_media = [70, 80, 90, 87, 92]
+
+x = np.arange(len(months))
+width = 0.25
+
+# Plotting
+plt.figure(figsize=(10, 6))
+
+# Bars
+bars1 = plt.bar(x - width, searches, width, label='Searches', color='#3498db')
+bars2 = plt.bar(x, direct, width, label='Direct', color='#e76f8c')
+bars3 = plt.bar(x + width, social_media, width, label='Social Media', color='#f4b942')
+
+# Add values on top of each bar
+for i in range(len(months)):
+    plt.text(x[i] - width, searches[i] + 1, str(searches[i]), ha='center', va='bottom', fontsize=10)
+    plt.text(x[i], direct[i] + 1, str(direct[i]), ha='center', va='bottom', fontsize=10)
+    plt.text(x[i] + width, social_media[i] + 1, str(social_media[i]), ha='center', va='bottom', fontsize=10)
+
+# Axis limits and ticks
+plt.xlim(-0.75, len(months) - 0.25)
+plt.ylim(0, max(social_media) + 20)
+plt.xticks(x, months)
+
+# Remove default axis labels
+plt.xlabel("")
+plt.ylabel("")
+
+plt.title('Visitors by web traffic sources', fontsize=12, fontweight='bold', pad=50)
+
+# X-axis label at bottom-right
+plt.text(len(months)-0.4, -10, 'months', fontsize=12, fontweight='bold', ha='right', va='top')
+
+# Y-axis stacked label at top-left outside the graph
+plt.text(-2.0, max(social_media) + 15, 'visitors\nin thousands', fontsize=12, fontweight='bold', ha='left', va='center')
+
+# Remove top and right spines
+ax = plt.gca()
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+
+# Thicken left and bottom spines
+ax.spines['left'].set_linewidth(1.5)
+ax.spines['bottom'].set_linewidth(1.5)
+
+# Legend outside bottom
+plt.legend(
+    loc='upper center',
+    bbox_to_anchor=(0.5, -0.15),
+    ncol=3,
+    frameon=False
+)
+
+# Layout spacing
+plt.tight_layout()
+plt.subplots_adjust(bottom=0.3, top=0.85)
+
+# Show plot
+plt.show()
